@@ -60,7 +60,7 @@
 
                     <div style="text-align:center;margin:1rem 1rem; line-height:1.8rem">
                         <p>Already have an account?</p>
-                        <a style="color: #ca3f77; " href="#">Login</a>
+                        <router-link style="color: #ca3f77; " to="/login">Login</router-link>
                     </div>
 
                     <div>
@@ -140,12 +140,7 @@ export default {
                 this.passwordValidity = 'accepted'
             }
 
-            // for(n in this.caps) {
-            //     if(this.passwordInput !== n) {
-            //         this.passwordValidity = 'caps'
-            //     }
-
-            // }
+            
             
 
             if(this.passwordInput !== this.confirmInput) {

@@ -12,7 +12,8 @@
                 <p>{{item.price}}</p>
             </div>
             <div class="btn">
-                <button  @click="$emit('view-product', item)" class="add-btn">Add to Cart</button>
+                <!-- <button  @click="$emit('view-product', item)" class="add-btn">Add to Cart</button> -->
+                <button @click="addToCart(item)">Add to Cart</button>
                 <button class="info-btn">More Info</button>
             </div>
             
@@ -41,6 +42,15 @@ export default {
   methods: {
       selectedItems(index) {
           this.products.filter((name, i) => i !== index )
+      },
+
+      addToCart(item) {
+        
+        this.$store.commit('addToCart', {
+            product: item,
+            quantity: 1
+        })
+        console.log(item)
       }
   }
 

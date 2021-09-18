@@ -17,7 +17,6 @@ import CheckOut from './CheckOut.vue';
 import UserCart from './UserCart.vue'
 export default {
     components: {CheckOut, UserCart},
-    props: [],
 
     data() {
         return {

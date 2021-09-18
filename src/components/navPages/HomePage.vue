@@ -50,7 +50,7 @@
 import ShopProducts from './ShopProducts.vue';
 import UserCart from '../cart/UserCart.vue'
 import items from '../js/items.js';
-import Vuex from '../Vuex.vue'
+import Vuex from '../Vuex.vue';
 
 export default { 
     components: {

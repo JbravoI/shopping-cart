@@ -27,6 +27,18 @@
                 </div>
             </div>
         </div>
+
+        <div style="display:flex; justify-content:space-between" v-for="item in getProductToCart" :key="item" >
+            <div>
+                <h1>{{item.product.name}}</h1>
+                <p>{{item.product.price}}</p>
+                <p>{{item.quantity}}</p>
+            </div>
+
+            <div>
+                <button @click="removeItem(item)">X</button>
+            </div>
+        </div>
     </div>
     
 </template>
@@ -41,9 +53,18 @@ export default {
         }
     },
 
+    
+
     computed:{
-        item_total() {
-            return 2000
+        getProductToCart() {
+            return this.$store.state.cart
+        }
+    },
+
+    methods: {
+        removeItem(item) {
+            this.$store.commit('removeItem', item)
+            console.log(item)
         }
     }
 

@@ -3,6 +3,7 @@
         <h1>Vuex</h1>
 
         <h3>{{counter }}</h3>
+        <h3>{{count}}</h3>
 
         <button @click="addOne">Add 2</button>
         <button @click='add10'>Add 10</button>
@@ -13,13 +14,17 @@
 export default {
     computed : {
         counter() {
-            return this.$store.state.counter
+            return this.$store.getters.finalCounter;
+        },
+
+        count() {
+            return  this.$store.getters.normalizedCounter 
         }
     }, 
 
     methods: {
         addOne() {
-            this.$store.commit('increment')
+            this.$store.dispatch('increment')
         },
 
         add10() {
@@ -27,7 +32,7 @@ export default {
 
             //alternative way to this this vuex mutation
             
-            this.$store.commit({
+            this.$store.dispatch({
                 type: 'increase',
                 value: 10
             })

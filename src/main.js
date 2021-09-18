@@ -7,6 +7,8 @@ import ShoppingBanner from './components/layout/ShoppingBanner.vue';
 
 
 
+
+
 const app = createApp(App);
 
 
