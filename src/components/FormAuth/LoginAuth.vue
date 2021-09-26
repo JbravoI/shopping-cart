@@ -11,11 +11,13 @@
                 <div>
                      <label for="Email">Email</label> <br>
                     <input type="email" name="email" id="email" v-model="emailAddress">
+                    <p v-if="emailValidity === 'invalid'">this field must not be empty</p>
                 </div>
 
                 <div>
                      <label for="password">Password</label><br>
                     <input type="password" name="password" id="password" v-model="password">
+                    <p v-if="passwordValidity === 'invalid'">enter your password</p>
                 </div>
                
                <button>Log In</button>
@@ -49,7 +51,15 @@ export default {
             }else{
                 this.emailValidity = 'valid'
                 console.log(this.emailAddress)
+                return this.emailAddress = ""
 
+            }
+
+            if(this.password === '') {
+                this.passwordValidity = 'invalid'
+            }else {
+                this.passwordValidity = 'valid'
+                return this.password = ""
             }
 
         }

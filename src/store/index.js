@@ -1,11 +1,12 @@
 import {createStore} from 'vuex'
 
 const store =  createStore({
+
     state: {
         counter: 0,
-        products: [],
-
-        cart: []
+        cart: [],
+        allPrices : [],
+       
     },
 
     mutations: {
@@ -32,22 +33,54 @@ const store =  createStore({
                    return item.product.id === product.id; 
             });
                if (productInCart){
-                   productInCart.quantity += quantity;
+                   productInCart.quantity += quantity;  
+                 
                    return;
                }
+
             state.cart.push({
-                    product,
-                    quantity
-                });
-           },
+                product,
+                quantity
+            });
+
+        },
 
         removeItem(state, product) {
             const productIndex = state.cart.findIndex((item) => item === product);
+            console.log(productIndex)
             if (productIndex !== -1) {
             state.cart.splice(productIndex, 1)
             }      
         },
 
+        cartTotal(state) {
+            let sum = 0
+           for (let i = 0; i < state.cart.length; i++) {
+               const price = state.cart[i].product.price
+               const quantity = state.cart[i].quantity
+               var interger = parseFloat(price)
+               const allSum = interger * quantity
+                sum += allSum    
+           }
+           console.log(sum) 
+           
+           return sum 
+        },
+
+        minusQuantity(state) {
+            for(let i = 0; i < state.cart.length; i++) {
+                const reduce = state.cart[i].quantity
+                    if(reduce > 1) {
+                    state.cart[i].quantity = state.cart[i].quantity - 1
+                }
+            }
+        },
+
+        addQuantity(state) {
+            for(let i = 0; i < state.cart.length; i++) {
+                state.cart[i].quantity = state.cart[i].quantity + 1
+            }
+        },
 
         updateCart(state, updatedItem) {
             state.cart = state.cart.map((cartItem) => {
@@ -63,8 +96,10 @@ const store =  createStore({
             state.cart = state.cart.filter((cartItem) => {
                 return cartItem.id != item.id
             })
-        }
+        },
+
     }, 
+
 
     getters: {
         finalCounter(state) {
@@ -93,6 +128,10 @@ const store =  createStore({
 
         increase(context, payload) {
             context.commit('increase', payload)
+        },
+
+        cartTotal(context) {
+            context.commit('cartTotal')
         }
     },
 
