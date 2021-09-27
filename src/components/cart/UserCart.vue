@@ -1,33 +1,6 @@
 <template>
     <div class="user-cart">
-        <div :class="{show: active}" @click="$emit('close-item')" />
-
-        <div><h2 style="color:#ca3f77">{{title}}</h2></div>
         
-
-        <div :class="{show : active}">
-            <!-- <div class="close-item" @click="$emit('close-item')">X</div> -->
-
-            <div v-if="item" class="item-details">
-                <div>
-                    <h3>{{item.name}}</h3>
-                <p>{{item.price}}</p>
-                </div>
-                
-
-                <!-- <div v-if="item_total">
-                    <h3>IN CART</h3>
-                    <h4>{{item_total}}</h4>
-                </div> -->
-
-                <div>
-                    <button @click="$emit('remove-item', item)">X</button>
-                    <!-- <button>Remove</button>
-                    <button>Add</button> -->
-                </div>
-            </div>
-        </div>
-
         <div class="the-cart" style="display:flex; justify-content:space-between" v-for="item in getProductToCart" :key="item" >
             <div class="cart-items">
                 <h1>{{item.product.name}}</h1>
@@ -47,7 +20,8 @@
         </div>
 
         <div v-if="getProductToCart.length > 0">
-            <p >Total : {{priceTotal()}} </p>
+            <p  >Total : {{priceTotal()}} </p>
+            
         </div>
 
         <div v-if="getProductToCart.length > 0" class="check-out">
@@ -78,6 +52,7 @@ export default {
             return this.$store.state.cart
             
         },
+       
     },
 
     methods: {
@@ -95,11 +70,17 @@ export default {
             return this.$store.commit('addQuantity')
         },
 
-        priceTotal() {
-            console.log(this.$store.dispatch('cartTotal'))
-            return this.$store.dispatch('cartTotal')
-        },
+        // sumTotal(sum) {
+        //     console.log(sum)
+        // },
 
+        priceTotal() {
+            console.log(this.$store.dispatch({type: 'cartTotal', value: 0}))
+           return  this.$store.dispatch({type: 'cartTotal', value: 0})
+        }
+        
+       
+      
         
     }
 

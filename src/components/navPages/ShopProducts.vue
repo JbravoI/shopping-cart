@@ -48,7 +48,7 @@ export default {
         
         this.$store.commit('addToCart', {
             product: item,
-            quantity: 1
+            quantity: 1,
         })
         console.log(item)
       }

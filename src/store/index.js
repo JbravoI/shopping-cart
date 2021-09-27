@@ -5,7 +5,7 @@ const store =  createStore({
     state: {
         counter: 0,
         cart: [],
-        allPrices : [],
+        sum: 0
        
     },
 
@@ -33,15 +33,17 @@ const store =  createStore({
                    return item.product.id === product.id; 
             });
                if (productInCart){
-                   productInCart.quantity += quantity;  
-                 
+                   productInCart.quantity = productInCart.quantity + quantity;  
                    return;
                }
 
+               
             state.cart.push({
                 product,
-                quantity
+                quantity,
             });
+
+            
 
         },
 
@@ -53,19 +55,22 @@ const store =  createStore({
             }      
         },
 
-        cartTotal(state) {
-            let sum = 0
+        cartTotal(state, payload) {
+            
            for (let i = 0; i < state.cart.length; i++) {
-               const price = state.cart[i].product.price
+               const price = parseFloat(state.cart[i].product.price)
                const quantity = state.cart[i].quantity
-               var interger = parseFloat(price)
-               const allSum = interger * quantity
-                sum += allSum    
+               const allSum = price * quantity
+                console.log(allSum)
+
+              payload.value = payload.value + ( allSum )
            }
-           console.log(sum) 
+           console.log(payload)
+        
            
-           return sum 
+            
         },
+       
 
         minusQuantity(state) {
             for(let i = 0; i < state.cart.length; i++) {
@@ -130,8 +135,8 @@ const store =  createStore({
             context.commit('increase', payload)
         },
 
-        cartTotal(context) {
-            context.commit('cartTotal')
+        cartTotal(context, payload) {
+            context.commit('cartTotal', payload)
         }
     },
 
