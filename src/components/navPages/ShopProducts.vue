@@ -50,7 +50,7 @@ export default {
             product: item,
             quantity: 1,
         })
-        console.log(item)
+    
       }
   }
 

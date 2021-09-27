@@ -36,42 +36,29 @@ const store =  createStore({
                    productInCart.quantity = productInCart.quantity + quantity;  
                    return;
                }
-
-               
             state.cart.push({
                 product,
                 quantity,
             });
 
-            
-
         },
 
         removeItem(state, product) {
             const productIndex = state.cart.findIndex((item) => item === product);
-            console.log(productIndex)
             if (productIndex !== -1) {
             state.cart.splice(productIndex, 1)
             }      
         },
 
         cartTotal(state, payload) {
-            
            for (let i = 0; i < state.cart.length; i++) {
                const price = parseFloat(state.cart[i].product.price)
                const quantity = state.cart[i].quantity
                const allSum = price * quantity
-                console.log(allSum)
-
               payload.value = payload.value + ( allSum )
            }
-           console.log(payload)
-        
-           
-            
         },
        
-
         minusQuantity(state) {
             for(let i = 0; i < state.cart.length; i++) {
                 const reduce = state.cart[i].quantity
@@ -109,7 +96,14 @@ const store =  createStore({
     getters: {
         finalCounter(state) {
             return state.counter * 2;
+        },
 
+        displayProductTotal(state){
+            let sum = 0;
+            for(let j=0; j<state.cart.length; j++){
+                sum += state.cart[j].product.price * state.cart[j].quantity;
+            }
+            return sum;
         },
 
         normalizedCounter(state, getters) {

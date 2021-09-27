@@ -80,7 +80,7 @@ export default {
         viewProduct(item) {
             this.item = item
             // this.active.view_item = true
-            console.log(this.item)
+            
         },
 
         closeItem() {

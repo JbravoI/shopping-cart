@@ -6,7 +6,7 @@
                 <h1>{{item.product.name}}</h1>
                 <p>Price: ${{item.product.price}}</p>
                 <div style="display:flex">
-                    <button class="quantity-btn" @click="reduceQuantity()">-</button>
+                    <button class="quantity-btn" @click="reduceQuantity(item)">-</button>
                     <p>Quantity: {{item.quantity}}</p>
                     <button class="quantity-btn" @click="increaseQuantity()">+</button>
                 </div>
@@ -20,7 +20,7 @@
         </div>
 
         <div v-if="getProductToCart.length > 0">
-            <p  >Total : {{priceTotal()}} </p>
+            <p  >Total : {{displayProductTotal}} </p>
             
         </div>
 
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+// import { mapState } from 'vuex'
 export default {
     props: ['item', 'active'],
     
@@ -44,43 +45,29 @@ export default {
         }
     },
 
-    
-
     computed:{
         getProductToCart() {
-        //    this.priceTotal(this.$store.state.cart)
             return this.$store.state.cart
-            
         },
-       
+
+        displayProductTotal(){
+            return this.$store.getters.displayProductTotal
+        }
     },
 
     methods: {
         removeItem(item) {
             this.$store.commit('removeItem', item)
-            console.log(item)
         },
         
-        
-        reduceQuantity() {
-            return this.$store.commit('minusQuantity')
+        reduceQuantity(item) {
+            console.log(item);
+            // return this.$s   tore.commit('minusQuantity')
         },
 
         increaseQuantity() {
             return this.$store.commit('addQuantity')
         },
-
-        // sumTotal(sum) {
-        //     console.log(sum)
-        // },
-
-        priceTotal() {
-            console.log(this.$store.dispatch({type: 'cartTotal', value: 0}))
-           return  this.$store.dispatch({type: 'cartTotal', value: 0})
-        }
-        
-       
-      
         
     }
 
