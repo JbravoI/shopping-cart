@@ -1,5 +1,6 @@
 <template>
     <div class="user-cart">
+        <h2>MY CART</h2>
         
         <div class="the-cart" style="display:flex; justify-content:space-between" v-for="item in getProductToCart" :key="item" >
             <div class="cart-items">
@@ -8,7 +9,7 @@
                 <div style="display:flex">
                     <button class="quantity-btn" @click="reduceQuantity(item)">-</button>
                     <p>Quantity: {{item.quantity}}</p>
-                    <button class="quantity-btn" @click="increaseQuantity()">+</button>
+                    <button class="quantity-btn" @click="increaseQuantity(item)">+</button>
                 </div>
             </div>
 
@@ -61,12 +62,13 @@ export default {
         },
         
         reduceQuantity(item) {
-            console.log(item);
-            // return this.$s   tore.commit('minusQuantity')
+           if (item.quantity > 1) {
+               item.quantity = item.quantity - 1
+           }
         },
 
-        increaseQuantity() {
-            return this.$store.commit('addQuantity')
+        increaseQuantity(item) {
+            item.quantity = item.quantity + 1
         },
         
     }

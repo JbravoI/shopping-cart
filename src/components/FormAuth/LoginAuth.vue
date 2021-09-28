@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import firebase from 'firebase/compat'
 export default {
     data() {
         return {
@@ -45,22 +46,31 @@ export default {
 
     methods: {
         loginAuth() {
-            if(this.emailAddress === '') {
-                this.emailValidity = 'invalid'
+            // if(this.emailAddress === '') {
+            //     this.emailValidity = 'invalid'
 
-            }else{
-                this.emailValidity = 'valid'
-                console.log(this.emailAddress)
-                return this.emailAddress = ""
+            // }else{
+            //     this.emailValidity = 'valid'
+            //     console.log(this.emailAddress)
+            //     return this.emailAddress = ""
 
-            }
+            // }
 
-            if(this.password === '') {
-                this.passwordValidity = 'invalid'
-            }else {
-                this.passwordValidity = 'valid'
-                return this.password = ""
-            }
+            // if(this.password === '') {
+            //     this.passwordValidity = 'invalid'
+            // }else {
+            //     this.passwordValidity = 'valid'
+            //     return this.password = ""
+            // }
+
+            firebase.auth().signInWithEmailAndPassword(this.emailAddress, this.password)
+            .then(user => {
+                alert(`you are logged in ${user.emailAddress}`)
+                this.$router.push('/')
+            },
+            err => {
+                alert(err.message)
+            })
 
         }
     }

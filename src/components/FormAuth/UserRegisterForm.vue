@@ -84,7 +84,7 @@
 
 <script>
 import ShoppingBanner from '../layout/ShoppingBanner.vue';
-
+import firebase from 'firebase/compat'
 export default {
   components: { ShoppingBanner },
 
@@ -149,6 +149,30 @@ export default {
             } else {
                 this.passwordMatch = 'password matched'
             }
+
+            firebase.auth().createUserWithEmailAndPassword(this.emailInput, this.passwordInput)
+            .then(user => {
+                alert(`Account created for ${user.emailInput}`)
+                this.$router.push('/')
+            },
+            err => {
+                alert(err.message)
+            })
+
+            fetch('https://shopeasy-d640d-default-rtdb.firebaseio.com/shopeasy.json', {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify({
+                    firstName : this.firstNameInput,
+                    lastName : this.lastNameInput,
+                    email : this.emailInput,
+                    password: this.passwordInput,
+                    confirmPassword: this.confirmInput
+                })
+
+            })
         },
 
         

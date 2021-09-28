@@ -4,9 +4,7 @@ const store =  createStore({
 
     state: {
         counter: 0,
-        cart: [],
-        sum: 0
-       
+        cart: []
     },
 
     mutations: {
@@ -58,38 +56,6 @@ const store =  createStore({
               payload.value = payload.value + ( allSum )
            }
         },
-       
-        minusQuantity(state) {
-            for(let i = 0; i < state.cart.length; i++) {
-                const reduce = state.cart[i].quantity
-                    if(reduce > 1) {
-                    state.cart[i].quantity = state.cart[i].quantity - 1
-                }
-            }
-        },
-
-        addQuantity(state) {
-            for(let i = 0; i < state.cart.length; i++) {
-                state.cart[i].quantity = state.cart[i].quantity + 1
-            }
-        },
-
-        updateCart(state, updatedItem) {
-            state.cart = state.cart.map((cartItem) => {
-                if(cartItem.id === updatedItem.id) {
-                    return updatedItem
-                }
-
-                return cartItem;
-            });
-        },
-
-        removeCartItem(state, item) {
-            state.cart = state.cart.filter((cartItem) => {
-                return cartItem.id != item.id
-            })
-        },
-
     }, 
 
 
