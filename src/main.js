@@ -5,6 +5,7 @@ import App from './App.vue';
 import TheHeader from './components/layout/TheHeader.vue';
 import ShoppingBanner from './components/layout/ShoppingBanner.vue';
 import firebase from 'firebase/compat'
+// import 'tailwindcss/tailwind.css'
 
 
  

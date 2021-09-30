@@ -4,8 +4,8 @@
         
         <div class="the-cart" style="display:flex; justify-content:space-between" v-for="item in getProductToCart" :key="item" >
             <div class="cart-items">
-                <h1>{{item.product.name}}</h1>
-                <p>Price: ${{item.product.price}}</p>
+                <h1>{{item.products.title}}</h1>
+                <p>Price: ${{item.products.price}}</p>
                 <div style="display:flex">
                     <button class="quantity-btn" @click="reduceQuantity(item)">-</button>
                     <p>Quantity: {{item.quantity}}</p>
@@ -28,9 +28,6 @@
         <div v-if="getProductToCart.length > 0" class="check-out">
             <button>Check Out</button>
         </div> 
-        
-        
-            
     </div>
     
 </template>
@@ -38,7 +35,7 @@
 <script>
 // import { mapState } from 'vuex'
 export default {
-    props: ['item', 'active'],
+    props: ['product', 'active'],
     
     data() {
         return {
@@ -53,8 +50,10 @@ export default {
 
         displayProductTotal(){
             return this.$store.getters.displayProductTotal
-        }
+        },
     },
+
+   
 
     methods: {
         removeItem(item) {
@@ -70,21 +69,12 @@ export default {
         increaseQuantity(item) {
             item.quantity = item.quantity + 1
         },
-        
     }
 
 
 }
 </script>
 <style scoped>
-.user-cart {
-    border: 1px solid grey;
-    width: 20rem;
-    margin-left: 3rem;
-    margin-top: 1rem;
-    height: 50vh;
-    padding: 1rem;
-}
 
 .user-cart h2 {
     text-align: center;

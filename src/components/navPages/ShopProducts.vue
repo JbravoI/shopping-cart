@@ -2,20 +2,37 @@
     <section>
         <product-card>
             <template v-slot:header>
-                <h3>{{item.type}}</h3>
+                <h3>{{product.category}}</h3>
             </template>
+            <img class="product-image" :src="product.image" alt="product-image">
+            <div class="product-name">
+                <p>{{product.title}}</p>
+                <p>Price - ${{product.price}} </p>
+                <star-rating :v-model="star-rating" :star-size="10">{{product.rating.rate}}</star-rating>
+                <p>Quantity: {{product.rating.count}}</p>
+            </div>
 
-            <img class="product-image" :src="item.image" alt="productImage">
+            <div class="btn">
+                <button @click="addToCart(product)">Add to Cart</button>
+                <button class="info-btn">Description</button>
+            </div>
+
+            <!-- <div class="btn">
+                <button @click="addToCart(item)">Add to Cart</button>
+                <button class="info-btn">Description</button>
+            </div>  -->
+
+            <!-- <img class="product-image" :src="item.image" alt="productImage">
             
             <div class="product-name">
                 <p>{{item.name}}</p>
                 <p>{{item.price}}</p>
             </div>
             <div class="btn">
-                <!-- <button  @click="$emit('view-product', item)" class="add-btn">Add to Cart</button> -->
+                <button  @click="$emit('view-product', item)" class="add-btn">Add to Cart</button>
                 <button @click="addToCart(item)">Add to Cart</button>
                 <button class="info-btn">More Info</button>
-            </div>
+            </div> -->
             
         </product-card>
 
@@ -25,17 +42,17 @@
 
 
 <script>
-import ProductCard from '../UI/ProductCard.vue'
+import ProductCard from '../UI/ProductCard.vue';
+import StarRating from 'vue-star-rating'
 export default {
-  components: { ProductCard },
-  props: ['item'],
+  components: { ProductCard, StarRating},
+  props: ['product'],
 
   emit: ['view-product'],
  
 
   data() {
       return {
-          
       }
   },
 
@@ -44,14 +61,17 @@ export default {
           this.products.filter((name, i) => i !== index )
       },
 
-      addToCart(item) {
-        
+      addToCart(product) {   
         this.$store.commit('addToCart', {
-            product: item,
+            products: product,
             quantity: 1,
         })
+
+        console.log(product)
     
-      }
+      },
+
+     
   }
 
   
@@ -63,9 +83,9 @@ export default {
 
 <style scoped>
 .product-image {
-    width: 10rem;
+    width: 100%;
     height: 10rem;
-    margin: .5rem 1rem .5rem 1rem;
+    margin: .5rem 0rem .5rem 0rem;
     object-fit: cover;
     
 }

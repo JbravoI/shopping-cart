@@ -1,7 +1,7 @@
 <template>
     <section>
-        <div class="flash-text">
-            <p>Welcome to ShopEasy. Get 20% discount on your first purchase. Cart, Cash and Carry. Serving you is our best interest</p>
+        <div >
+            <p class="flash-text">Welcome to ShopEasy. Get 20% discount on your first purchase. Cart, Cash and Carry. Serving you is our best interest</p>
         </div>
 
         <div class="ads">
@@ -21,42 +21,31 @@
         </div>
 
         <div class="products">
-           <shop-products class="product-item" v-for="item in items"
+           <!-- <shop-products class="product-item" v-for="item in items"
             :key="item.id"
             :id="item.id"
             :item="item"
             @view-product="viewProduct($event)"
             >
-
+           </shop-products> -->
+           <shop-products class="product-item " v-for="product in products" 
+           :key="product.id" 
+           :id="product.id"
+           :product="product"
+           >
            </shop-products>
-
-           <div>
-             <UserCart :item="item" :active="active.view_item" @close-item="closeItem()" @remove-item="removeItem()"/>
-         </div>
         </div>
-        
-         <div>
-             <vuex></vuex>
-         </div>
-
-        
-
-       
-        
     </section>
 </template>
 
 <script>
 import ShopProducts from './ShopProducts.vue';
-import UserCart from '../cart/UserCart.vue'
 import items from '../js/items.js';
-import Vuex from '../Vuex.vue';
+import axios from 'axios'
 
 export default { 
     components: {
-        ShopProducts,
-        UserCart,
-        Vuex
+        ShopProducts
         },
     
     data() {
@@ -64,16 +53,19 @@ export default {
             adTitle: 'Flash Sales',
             adDetails: '50% Discount',
             adDate: 'September 5th - 9th',
-
             items : items,
             item: null,
-
+            products: [],
             active: {
                 view_item: false
             }
         }
 
         
+    },
+
+    mounted() {
+        this.getProducts()
     },
 
     methods: {
@@ -89,6 +81,14 @@ export default {
 
         removeItem(id) {
             this.item.$remove(id)
+        },
+
+        getProducts() {
+            axios.get('https://fakestoreapi.com/products')
+            .then((response) => {
+                this.products = response.data
+                console.log(this.products)
+            })
         }
 
 
@@ -147,6 +147,7 @@ export default {
 
 .products {
     display: flex;
+    flex-wrap: wrap;
     
 }
 

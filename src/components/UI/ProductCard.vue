@@ -16,10 +16,11 @@ header {
     color: white;
     text-align: center;
     padding: 1rem;
+    width: 18rem;
 }
 div {
-    width: 17rem;
-    height: 17rem;
+    width: 18rem;
+    height: 20rem;
     background: whitesmoke;
     border: 1px solid grey;
 }

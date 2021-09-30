@@ -26,16 +26,16 @@ const store =  createStore({
         //     state.cart.push(payload)
         // },
 
-        addToCart(state, {product, quantity}) {
+        addToCart(state, {products, quantity}) {
             let productInCart = state.cart.find(item =>{
-                   return item.product.id === product.id; 
+                   return item.products.id === products.id; 
             });
                if (productInCart){
                    productInCart.quantity = productInCart.quantity + quantity;  
                    return;
                }
             state.cart.push({
-                product,
+                products,
                 quantity,
             });
 
@@ -67,7 +67,7 @@ const store =  createStore({
         displayProductTotal(state){
             let sum = 0;
             for(let j=0; j<state.cart.length; j++){
-                sum += state.cart[j].product.price * state.cart[j].quantity;
+                sum += state.cart[j].products.price * state.cart[j].quantity;
             }
             return sum;
         },

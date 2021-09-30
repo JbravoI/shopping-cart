@@ -30,7 +30,7 @@ export default {
   padding: 0;
   box-sizing: border-box;
   font-weight: 100;
-  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 a {
